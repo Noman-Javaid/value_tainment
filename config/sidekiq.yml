@@ -1,0 +1,39 @@
+:concurrency: 5
+staging:
+  :concurrency: 5
+production:
+  :concurrency: 10
+:queues:
+  - high
+  - notifications
+  - default
+  - refunds
+  - transfer_payments
+  - expert_calls
+
+:scheduler:
+  :schedule:
+    ExpertCalls::ExpireRescheduleCallsWorker:
+      cron: '*/15 * * * *'   # Runs once per minute
+      queue: expert_calls
+      enabled: true
+    ExpertCalls::ExpirePendingTimeChangeRequestWorker:
+      cron: '*/15 * * * *'   # Runs once per minute
+      queue: expert_calls
+      enabled: true
+    ExpertCalls::ExpirePendingRequestWorker:
+      cron: '*/10 * * * *'   # Runs once per minute
+      queue: expert_calls
+      enabled: true
+    Expert::UpdateEarningsWorker:
+      cron: '*/5 * * * *'   # Runs once per minute
+      queue: high
+      enabled: true
+    ExpertCalls::CapturePaymentWorker:
+      cron: '*/5 * * * *'
+      queue: expert_calls
+      enabled: true
+    ExpertCalls::CreateRoomWorker:
+      cron: '* * * * *'   # Runs once per minute
+      queue: high
+      enabled: true

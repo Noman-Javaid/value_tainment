@@ -1,0 +1,30 @@
+{
+  "id": "api/schemas/expert_call/individual_search/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "results": { "type": "integer" },
+    "has_more": { "type": "boolean" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "individuals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "first_name": { "type": "string" },
+              "last_name": { "type": "string" },
+              "url_picture":{ "type": ["string", "null"] }
+            },
+            "required": ["id", "first_name", "last_name", "url_picture"]
+          }
+        }
+      },
+      "required": ["individuals"]
+    }
+  },
+  "required": ["data", "status"]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "api/schemas/delete_account/destroy.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": { "type": "null" }
+  },
+  "required": ["data", "status"]
+}

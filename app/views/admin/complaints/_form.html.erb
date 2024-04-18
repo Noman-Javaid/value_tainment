@@ -1,0 +1,11 @@
+<% if @complaint.new_record? %>
+  <%= render partial: "form_edit", resource: @complaint %>
+<% else %>
+  <% interaction_valid_status = %w[filed_complaint]%>
+  <% if ((@complaint&.expert_interaction&.interaction_type == 'QuickQuestion' && @complaint&.expert_interaction&.interaction&.status&.in?(interaction_valid_status)) ||
+        (@complaint&.expert_interaction&.interaction_type == 'ExpertCall' && @complaint&.expert_interaction&.interaction&.call_status&.in?(interaction_valid_status))) %>
+    <%= render partial: "form_edit_2", resource: @complaint %>
+  <% else %>
+    <%= render partial: "form_edit", resource: @complaint %>
+  <% end %>
+<% end %>

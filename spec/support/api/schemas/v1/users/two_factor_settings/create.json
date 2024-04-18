@@ -1,0 +1,17 @@
+{
+  "id": "api/schemas/users/two_factor_settings/create.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "two_factor_enabled": { "type": "boolean" },
+        "backup_code": { "type": "string" }
+      },
+      "required": ["two_factor_enabled", "backup_code"]
+    }
+  },
+  "required": ["data", "status"]
+}

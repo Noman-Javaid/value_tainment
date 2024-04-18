@@ -1,0 +1,29 @@
+{
+  "id": "api/schemas/expert_call/join.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "expert_call": {
+          "type": "object",
+          "properties": {
+            "room_name": { "type": "string" },
+            "owner_id": { "type": "string" },
+            "expert_identity": { "type": "string" },
+            "token_jwt": { "type": "string" },
+            "expert": { "type": "boolean" },
+            "owner": { "type": "boolean" },
+            "time_left": { "type": "integer" }
+          },
+          "required": ["room_name", "token_jwt", "expert", "time_left", "owner_id",
+                      "owner"]
+        }
+      },
+      "required": ["expert_call"]
+    }
+  },
+  "required": ["data", "status"]
+}

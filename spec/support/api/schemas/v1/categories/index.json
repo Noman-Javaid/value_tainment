@@ -1,0 +1,27 @@
+{
+  "id": "api/schemas/categories/index.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "number" },
+              "name": { "type": "string" },
+              "description": { "type": "string" }
+            },
+            "required": ["id", "name", "description"]
+          }
+        }
+      },
+      "required": ["categories"]
+    }
+  },
+  "required": ["data", "status"]
+}

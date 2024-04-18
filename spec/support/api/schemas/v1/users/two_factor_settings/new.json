@@ -1,0 +1,16 @@
+{
+  "id": "api/schemas/users/two_factor_settings/new.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "two_factor_code_sent": { "type": "boolean" }
+      },
+      "required": ["two_factor_code_sent"]
+    }
+  },
+  "required": ["data", "status"]
+}

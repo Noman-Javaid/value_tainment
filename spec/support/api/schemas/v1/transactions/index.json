@@ -1,0 +1,56 @@
+{
+  "id": "api/schemas/transactions/index.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "created_at": { "type": "string" },
+              "expert": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "first_name": { "type": "string" },
+                  "last_name": { "type": "string" }
+                },
+                "required": ["id", "first_name", "last_name"]
+              },
+              "individual": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "first_name": { "type": "string" },
+                  "last_name": { "type": "string" }
+                },
+                "required": ["id", "first_name", "last_name"]
+              },
+              "expert_interaction": {
+                "type": "object",
+                "properties": {
+                  "interaction_id": { "type": "string" },
+                  "interaction_type": { "type": "string" },
+                  "call_type": { "type": "string" },
+                  "rate": { "type": "integer" },
+                  "extra_user_rate": { "type": "integer" },
+                  "extra_user": { "type": "boolean" },
+                  "is_time_addition": { "type": "boolean" }
+                },
+                "required": ["interaction_id", "interaction_type", "rate"]
+              }
+            },
+            "required": ["id", "created_at", "paid", "expert", "individual",
+                         "expert_interaction"]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "api/schemas/expert/quick_questions/attachment/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "null"
+    }
+  },
+  "required": ["data", "status"]
+}

@@ -1,0 +1,173 @@
+# Additional translations at https://github.com/heartcombo/devise/wiki/I18n
+
+en:
+  global:
+    events:
+      call_cancellation: 'Call Cancellation'
+      reschedule_request: 'Call Rescheduling'
+      time_change_request: 'Time change Request'
+      time_change_request_accepted: 'Time change Request Accepted'
+      time_change_request_declined: 'Time change Request Declined'
+      reschedule_request_accepted: 'Call Rescheduling Accepted'
+      reschedule_request_declined: 'Call Rescheduling Declined'
+  devise:
+    confirmations:
+      confirmed: "Your email address has been successfully confirmed."
+      send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
+      send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes."
+    failure:
+      already_authenticated: "You are already signed in."
+      inactive: "Your account is not activated yet."
+      invalid: "Invalid %{authentication_keys} or password."
+      locked: "Your account is locked."
+      last_attempt: "You have one more attempt before your account is locked."
+      not_found_in_database: "Invalid %{authentication_keys} or password."
+      timeout: "Your session expired. Please sign in again to continue."
+      unauthenticated: "You need to sign in or sign up before continuing."
+      unconfirmed: "You have to confirm your email address before continuing."
+    mailer:
+      confirmation_instructions:
+        subject: "Confirmation instructions"
+      reset_password_instructions:
+        subject: "Reset password instructions"
+      unlock_instructions:
+        subject: "Unlock instructions"
+      email_changed:
+        subject: "Email Changed"
+      password_change:
+        subject: "Password Changed"
+    omniauth_callbacks:
+      failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
+      success: "Successfully authenticated from %{kind} account."
+    passwords:
+      no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
+      send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
+      send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
+      updated: "Your password has been changed successfully. You are now signed in."
+      updated_not_active: "Your password has been changed successfully."
+    registrations:
+      destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
+      signed_up: "Welcome! You have signed up successfully."
+      signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
+      signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
+      signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
+      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirmation link to confirm your new email address."
+      updated: "Your account has been updated successfully."
+      updated_but_not_signed_in: "Your account has been updated successfully, but since your password was changed, you need to sign in again."
+    sessions:
+      signed_in: "Signed in successfully."
+      signed_out: "Signed out successfully."
+      already_signed_out: "Signed out successfully."
+    unlocks:
+      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
+      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
+      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+  errors:
+    messages:
+      already_confirmed: "was already confirmed, please try signing in"
+      confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      expired: "has expired, please request a new one"
+      not_found: "not found"
+      not_locked: "was not locked"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
+  api:
+    private_chat:
+      create:
+        errors:
+          unauthorized: 'You are not authorized to create the private chat.'
+          empty_users_list: 'Users are mandatory for creating a private chat.'
+    interaction:
+      update_interaction:
+        errors:
+          invalid_access: 'You are not authorised to update this interaction.'
+          invalid_rating: 'Please select rating from 1 to 5.'
+          invalid_call_status: 'You can not submit the feedback for this interaction.'
+          already_submitted_or_time_passed: 'You can not submit the feedback for this interaction.'
+        success:
+          updated: 'Your request has been successfully submitted.'
+    expert_call:
+      cancellation:
+        errors:
+          invalid_access: 'You are not authorised to cancel this call.'
+          invalid_status: 'Cancellation is not allowed from this state.'
+        success: 'Call has been cancelled successfully.'
+        message_to_expert: "Hi %{expert_name}, your call with %{individual_name} on %{call_date_time} has been canceled."
+        message_to_individual: "Hi %{individual_name}, your call with %{expert_name} on %{call_date_time} has been canceled. If you would like to book a new call, please open Minnect and find an expert!"
+        subtext_without_comment: "%{actor_name} canceled the video call"
+        subtext_with_comment: "%{actor_name} canceled the video call with the comment \n %{cancellation_reason}"
+        0_12_hours_description: 'You are not eligible to receive a refund for this call because the call is scheduled to start in less than 12 hours.'
+        12_24_hours_description: 'You are eligible to receive a 50% refund for this call because the call is scheduled to start in less than 24 hours.'
+        before_24_hours_description: 'You will receive a full refund for this call.'
+        no_refund_description: 'Last minute cancellations are not eligible for refunds to compensate experts for the inconvenience.'
+        partial_refund_description: 'The refund will take 3-5 business days to process.'
+        full_refund_description: 'The refund will take 3-5 business days to process.'
+        cancel_on_declining_rescheduling_request: 'Canceling the call as, User has declined the rescheduling request.'
+        cancel_on_not_answering_rescheduling_request: 'Canceling the call as, User has not responded to the rescheduling request within time.'
+      rescheduling:
+        errors:
+          invalid_access: 'You are not authorised to reschedule this call.'
+          invalid_status: 'Rescheduling is not allowed from this state.'
+          invalid_time: 'Can not re-scheduled the call for the given time.'
+        accept:
+          invalid_time: 'Sorry, this request has been expired.'
+          invalid_access: 'You are not authorised to reschedule this call.'
+          message_to_individual: 'Hi %{individual_name}, %{expert_name} has accepted your request to move your scheduled call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+          message_to_expert: 'Hi %{expert_name}, %{individual_name} has accepted your request to move your scheduled call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+        decline:
+          message_to_individual: 'Hi %{individual_name}, %{expert_name} has declined your request to move your scheduled call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+          message_to_expert: 'Hi %{expert_name}, %{individual_name} has declined your request to move your scheduled call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+        created: 'Rescheduling request has been successfully submitted.'
+        accepted: 'Rescheduling request has been accepted.'
+        declined: 'Rescheduling request has been declined.'
+        message_to_expert: 'Hi %{expert_name}, %{individual_name} has requested to move your call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+        message_to_individual: 'Hi %{individual_name}, %{expert_name} has requested to move your call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+        subtext_without_comment: "%{actor_name} has asked to reschedule the %{call_duration} mins call to %{new_rescheduled_date_time}"
+        subtext_with_comment: "%{actor_name} has asked to reschedule the %{call_duration} mins call to %{new_rescheduled_date_time} with the comment \n %{rescheduling_reason}"
+      change_time:
+        created: 'Time change request has been successfully submitted.'
+        errors:
+          invalid_access: 'You are not authorised to ask for the time change for this call.'
+          invalid_status: 'Time change is not allowed from this state.'
+          invalid_time: 'Can not accept the time change request for the given time.'
+        accept:
+          invalid_time: 'Sorry, this request has been expired.'
+          invalid_access: 'You are not authorised to reschedule this call.'
+          message_to_expert: 'Hi %{expert_name}, %{individual_name} has accepted your request to move your scheduled call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+        decline:
+          message_to_expert: 'Hi %{expert_name}, %{individual_name} has declined your request to move your scheduled call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+        accepted: 'Time change request has been accepted.'
+        declined: 'Time change request has been declined.'
+        message_to_individual: 'Hi %{individual_name}, %{expert_name} has requested to move your call on %{call_date_time}. Open the Minnect app to view and respond to the request!'
+        cancel_on_declining_time_change_request: 'Canceling the call as, User has declined the time change request.'
+        cancel_on_not_answering_time_change_request: 'Canceling the call as, User has not responded to the time change request within time.'
+    utils:
+    contact_form:
+      submission_successful: "Thank you for your message! We'll get back to you soon."
+    message:
+      create:
+        errors:
+          invalid_private_chat: "Invalid private chat."
+          unauthorized_sender: "You cannot send message to this chat."
+          invalid_sender_type: "Invalid sender"
+          already_pending_question: "Sorry, you cannot submit another question until the expert responds."
+        successful: "Your question has been submitted successfully."
+        expert_reply: "You message has been submitted successfully."
+        marked_as_read: "Messages has been read."
+  general_messages:
+    force_update: 'Minnect Update Required: A new version of Minnect has been released that requires an update. Please tap the link below to view the update in the App/Play Store, or open the Minnect App/Play Store page, and install the update to use the app.'
+    force_update_notification_text: 'Update Required: Please update Minnect to the latest version of the app in the App Store.'
+  app_urls:
+    app_store_url: 'https://apps.apple.com/us/app/minnect/id1583104411'
+    play_store_url: 'https://play.google.com/store/apps/details?id=com.koombea.valuetainment&hl=en&gl=US&pli=1'
+  payment:
+    create:
+      errors:
+        invalid_payable_entity: "Unable to initiate payment for the provided entity."
+    capture:
+      errors:
+        invalid_state: "Payment can not be captured from this state."
+    stipe:
+      errors:
+        missing_payment_entity: "Payment is not initiated."

@@ -1,0 +1,45 @@
+{
+  "id": "api/schemas/individual_quick_questions/index.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "quick_questions": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "id": { "type": "string" },
+              "expert_id": { "type": "string" },
+              "individual_id": { "type": "string" },
+              "question": { "type": "string" },
+              "description": { "type": "string" },
+              "category_id": { "type": "number" },
+              "category_name": { "type": "string" },
+              "answer": { "type": ["string", "null"] },
+              "answer_date": { "type": ["string", "null"] },
+              "payment_status": { "type": ["string", "null"] },
+              "time_left": { "type": "string" },
+              "status": { "type": "string" },
+              "created_at": { "type": "string" },
+              "rate": { "type": "number" },
+              "has_attachment": {"type": "boolean"},
+              "expert_name": { "type": "string" },
+              "expert_picture": { "type": ["string", "null"] },
+              "expert_status": { "type": "string" },
+              "is_answered": {"type": "boolean"}
+            },
+            "required": ["id", "expert_id", "individual_id", "question", "description",
+              "category_id", "category_name", "answer", "answer_date", "payment_status",
+              "time_left", "status", "created_at", "rate", "expert_name", "expert_picture",
+              "expert_status", "has_attachment"]
+          }
+        }
+      },
+      "required": ["quick_questions"]
+    }
+  },
+  "required": ["data", "status"]
+}

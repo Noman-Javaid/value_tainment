@@ -1,0 +1,127 @@
+version: 2.1
+jobs:
+  test:
+    working_directory: ~/application
+    docker:
+      - image: koombea/circleci:0.12.31
+        environment:
+          PROJECT_NAME: valuentainment
+          SERVICE_NAME: backend
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: true
+      - run:
+          name: Building test and run test
+          no_output_timeout: 25m
+          command: |
+            if [[ "${CIRCLE_BRANCH//[\/-]/_}" == "master" ]]; then
+              AWS_DEFAULT_REGION=us-east-1
+              ECR_REPO_TEMP=$ECR_REPO_PROD
+              PROJECT_NAME=valuetainment
+
+            else
+              AWS_DEFAULT_REGION=us-east-2
+              ECR_REPO_TEMP=$ECR_REPO_STAGE
+            fi
+            $(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})
+            cache="${ECR_REPO_TEMP}/${PROJECT_NAME}-test-images:${SERVICE_NAME}-${CIRCLE_BRANCH//[\/]/-}-test"
+            docker pull $cache || true
+            echo "RAILS_MASTER_KEY=${RAILS_MASTER_KEY}">.env
+            docker-compose config
+            docker-compose up --build --exit-code-from app
+            docker tag application_app $cache
+            docker push $cache
+  deploy:
+    working_directory: ~/application
+    docker:
+      - image: koombea/circleci:0.12.31
+        environment:
+          PROJECT_NAME: valuentainment
+          SERVICE_NAME: backend
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: true
+      - run:
+          name: Building Docker image for release
+          no_output_timeout: 25m
+          command: |
+            if [[ "${CIRCLE_BRANCH//[\/-]/_}" == "master" ]]; then
+              ENV=production
+              AWS_DEFAULT_REGION=us-east-1
+              ECR_REPO_TEMP=$ECR_REPO_PROD
+              PROJECT_NAME=valuetainment
+            else
+              ENV=staging
+              AWS_DEFAULT_REGION=us-east-2
+              ECR_REPO_TEMP=$ECR_REPO_STAGE
+            fi
+            cache=$(echo "${ECR_REPO_TEMP}/${PROJECT_NAME}-${ENV}:${SERVICE_NAME}-service-${ENV}-latest" | tr '[:upper:]' '[:lower:]')
+            tag=$(echo "${ECR_REPO_TEMP}/${PROJECT_NAME}-${ENV}:${SERVICE_NAME}-service-${ENV}-${CIRCLE_BUILD_NUM}" | tr '[:upper:]' '[:lower:]')
+            $(aws ecr get-login --no-include-email --region ${AWS_DEFAULT_REGION})
+            docker pull $cache || true
+            docker build --build-arg RAILS_MASTER_KEY=${RAILS_MASTER_KEY} --build-arg RAILS_ENV=${ENV} --cache-from $cache -t image .
+            docker tag image $cache
+            docker tag image $tag
+            docker push $cache
+            docker push $tag
+      - run:
+          name: Deployment steps
+          command: |
+            if [[ "${CIRCLE_BRANCH//[\/-]/_}" == "master" ]]; then
+              ENV=production
+              AWS_DEFAULT_REGION=us-east-1
+              SERVICES=("backend" "sidekiq")
+              CLUSTER_SUFFIX=("" "")
+              PROJECT_NAME=valuetainment
+              cd terraform-code/production/
+            else
+              ENV=staging
+              AWS_DEFAULT_REGION=us-east-2
+              SERVICES=("backend" "sidekiq")
+              CLUSTER_SUFFIX=("" "")
+              cd terraform-code/staging/
+            fi
+            terraform init
+            terraform workspace select $ENV
+            for (( i = 0; i < ${#SERVICES[@]}; i++ ))
+            do
+              terraform output "${SERVICES[i]}"-service-task-definition-json > task.json
+              task_role_arn=$(cat task.json | jq '.[]' | jq '.taskRoleArn' | cut -d '"' -f 2)
+              sed -i "6d; s/latest/${CIRCLE_BUILD_NUM}/g" task.json
+              task_definition_arn=$(aws ecs register-task-definition --family $PROJECT_NAME-"${SERVICES[i]}"-service-$ENV --task-role-arn $task_role_arn \
+              --container-definitions file://task.json --query 'taskDefinition.taskDefinitionArn' --output text --region ${AWS_DEFAULT_REGION})
+              aws ecs update-service --cluster $PROJECT_NAME"${CLUSTER_SUFFIX[i]}"-$ENV --service "${SERVICES[i]}"-service-$ENV --task-definition $task_definition_arn --region ${AWS_DEFAULT_REGION}
+            done
+      - run:
+          name: Run migrations
+          command: |   
+            if [[ "${CIRCLE_BRANCH//[\/-]/_}" == "master" ]]; then
+              ENV=production
+              AWS_DEFAULT_REGION=us-east-1
+              PROJECT_NAME=valuetainment
+            else
+              ENV=staging
+              AWS_DEFAULT_REGION=us-east-2
+            fi   
+            # Migrations
+            JSON="{\"containerOverrides\":[{\"name\":\"backend-service-${ENV}\",\"command\":[\"rails\",\"db:migrate\"]}]}"
+            aws --region ${AWS_DEFAULT_REGION} ecs run-task --cluster $PROJECT_NAME-$ENV --task-definition $(aws --region ${AWS_DEFAULT_REGION} ecs list-task-definitions --family  $PROJECT_NAME-backend-service-migration-$ENV | jq -r '.taskDefinitionArns[-1]') --overrides "${JSON}" > /dev/null
+workflows:
+  version: 2
+  valuentainment-aws-backend:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - feature-circleci-config
+                - dev
+                - master
+                - staging

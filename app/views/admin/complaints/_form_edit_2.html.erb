@@ -1,0 +1,11 @@
+<%= semantic_form_for [:admin, @complaint], builder: Formtastic::FormBuilder do |f| %>
+  <%= f.semantic_errors %>
+  <%= f.inputs do %>
+    <%= f.input :expert %>
+    <%= f.input :individual %>
+    <%= f.input :expert_interaction %>
+    <%= f.input :content %>
+    <%= f.input :status, as: :select, collection: Complaint.aasm.states.map(&:name) %>
+  <% end %>
+  <%= f.actions %>
+<% end %>

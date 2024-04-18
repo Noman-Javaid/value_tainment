@@ -1,0 +1,19 @@
+{
+  "id": "api/schemas/expert/quick_questions/attachment/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "headers": {"type": "null"},
+        "file_type": { "type": "string" },
+        "file_size": { "type": "string" }
+      },
+      "required": ["url", "file_type", "file_size"]
+    }
+  },
+  "required": ["data", "status"]
+}

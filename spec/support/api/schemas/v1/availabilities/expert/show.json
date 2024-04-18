@@ -1,0 +1,39 @@
+{
+  "id": "api/schemas/availabilities/expert/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "expert_availability": {
+          "type": "object",
+          "properties": {
+            "weekdays": {
+              "type": "object" ,
+              "properties": {
+                "days": { "type": "array" },
+                "time_start": { "type": ["string", "null"] },
+                "time_end": { "type": ["string", "null"] }
+              },
+              "required": ["days", "time_start", "time_end"]
+            },
+            "weekend": {
+              "type": "object" ,
+              "properties": {
+                "days": { "type": "array" },
+                "time_start": { "type": ["string", "null"] },
+                "time_end": { "type": ["string", "null"] }
+              },
+              "required": ["days", "time_start", "time_end"]
+            }
+          },
+          "required": ["weekdays", "weekend"]
+        }
+      },
+      "required": ["expert_availability"]
+    }
+  },
+  "required": ["data", "status"]
+}

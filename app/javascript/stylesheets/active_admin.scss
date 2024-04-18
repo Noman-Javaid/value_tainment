@@ -1,0 +1,72 @@
+// Sass variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "~@activeadmin/activeadmin/src/scss/mixins";
+@import "~@activeadmin/activeadmin/src/scss/base";
+
+// Overriding any non-variable Sass must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+
+#new_user .has_many_remove {
+  display: none;
+}
+
+.interaction_list {
+  margin-left: 20em;
+}
+
+$skinMainSecondColor: #de5e52!default;
+$skinBorderWindowColor: #B8BABE!default;
+
+@import '@activeadmin-plugins/active_admin_theme';
+
+#wrapper table.index_table {
+  th {
+    background-color: #f2f5f6;
+    border-bottom: 1px solid #abadb2;
+  }
+
+  th.sorted-desc {
+    background-color: #d8d9da;
+  }
+}
+
+form.filter_form .filter_form_field.select_and_search select {
+  padding: 4px;
+}
+
+.filter_form_field select {
+  padding: 4px;
+}
+
+#wrapper .sidebar_section.panel > h3 {
+  font-weight: 700;
+  background-color: #de5e52;
+}
+
+#wrapper #active_admin_content div.table_tools ul.scopes li a, #wrapper #active_admin_content div.table_tools div.scopes > ul li a {
+  background-color: #f2f5f6;
+  border: 1px solid #e1e4e6;
+  color: #969da3;
+
+  span {
+    color: #f57a6e;
+  }
+}
+#wrapper #active_admin_content div.table_tools ul.scopes li.selected a, #wrapper #active_admin_content div.table_tools div.scopes > ul li.selected a {
+  color: #fff;
+  background-color: $skinMainSecondColor;
+
+  span {
+    color: #fff;
+  }
+}

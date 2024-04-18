@@ -1,0 +1,85 @@
+{
+  "id": "api/schemas/expert_call/create.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "expert_call": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "room_id": { "type": ["string", "null"] },
+            "call_type": { "type": "string" },
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "scheduled_call_duration": { "type": "number" },
+            "scheduled_time_start": { "type": "string" },
+            "scheduled_time_end": { "type": "string" },
+            "time_start": { "type": ["string", "null"] },
+            "time_end": { "type": ["string", "null"] },
+            "call_status": { "type": "string" },
+            "payment_status": { "type": ["string", "null"] },
+            "rate": { "type": "number" },
+            "created_at": { "type": "string" },
+            "time_addition_duration_in_seconds": { "type": "number" },
+            "expert": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "first_name": { "type": "string" },
+                "last_name": { "type": "string" },
+                "url_picture":{ "type": ["string", "null"] },
+                "status": { "type": "string" }
+              },
+              "required": ["id", "first_name", "last_name", "url_picture", "status"]
+            },
+            "individual": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "first_name": { "type": "string" },
+                "last_name": { "type": "string" },
+                "url_picture":{ "type": ["string", "null"] }
+              },
+              "required": ["id", "first_name", "last_name", "url_picture"]
+            },
+            "guests": {
+              "type": "array",
+              "items": {
+                "individual": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "first_name": { "type": "string" },
+                    "last_name": { "type": "string" },
+                    "url_picture":{ "type": ["string", "null"] },
+                    "confirmed":{ "type": ["boolean", "null"] }
+                  },
+                  "required": ["id", "first_name", "last_name", "url_picture",
+                               "confirmed"]
+                }
+              }
+            },
+            "category": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "number" },
+                "name": { "type": "string" }
+              },
+              "required": ["id", "name"]
+            }
+          },
+          "required": ["id", "room_id", "call_type", "title", "description",
+            "scheduled_time_start", "scheduled_time_end", "time_start", "time_end",
+            "call_status", "payment_status", "rate", "created_at", "expert",
+            "individual", "guests", "category", "time_addition_duration_in_seconds"]
+        }
+      },
+      "required": ["expert_call"]
+    }
+  },
+  "required": ["data", "status"]
+}

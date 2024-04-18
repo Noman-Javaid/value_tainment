@@ -1,0 +1,33 @@
+{
+  "id": "api/schemas/credit_card_list/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "customer_id": {
+          "type": "string"
+        },
+        "credit_cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "brand", "last_digits"],
+            "properties": {
+              "id": { "type": "string" },
+              "brand": { "type": "string" },
+              "last_digits": { "type": "string" }
+            }
+          }
+        },
+        "has_more": {
+          "type": "boolean"
+        }
+      },
+      "required": ["credit_cards", "customer_id", "has_more"]
+    }
+  },
+  "required": ["data", "status"]
+}

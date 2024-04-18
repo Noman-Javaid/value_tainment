@@ -1,0 +1,28 @@
+{
+  "id": "api/schemas/expert_call/time_addition.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "time_addition": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "expert_call_id": { "type": "string" },
+            "status": { "type": "string" },
+            "duration": { "type": "integer" },
+            "rate": { "type": "integer" },
+            "created_at": { "type": "string" }
+          },
+          "required": ["id", "expert_call_id", "status", "duration", "rate",
+                       "created_at"]
+        }
+      },
+      "required": ["time_addition"]
+    }
+  },
+  "required": ["data", "status"]
+}

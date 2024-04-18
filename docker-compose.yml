@@ -1,0 +1,39 @@
+version: '3.2'
+services:
+  db:
+    image: postgres:13.2-alpine
+    environment:
+      POSTGRES_USER:    postgres
+      POSTGRES_PASSWORD: mysecretpassword
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      cache_from: ["${PROJECT_NAME}-test-images:${SERVICE_NAME}-${CIRCLE_BRANCH}-test"]
+      args:
+        - BUNDLE_WITHOUT=production
+        - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    command: ["rspec"]
+    environment:
+        RAILS_ENV: "test"
+        DATABASE_URL: postgres://postgres:mysecretpassword@db:5432/test
+        RACK_ENV: "test"
+        DB_TEST_NAME: valuetainment_test
+        ROOT_URL: http://localhost:3000
+        SENDGRID_USERNAME: fake
+        SENDGRID_PASSWORD: fake
+        SENDGRID_HOST: smtp.sendgrid.net
+        SENDGRID_PORT: 587
+        DEVISE_JWT_SECRET_KEY: 563233fe384aab71cf77b088a4f6b45c4ab020f18a0c94d9578cdf90bd41804de2e473a537174f17c780305d194d35d5a4a37058db1f0f4db988cd2a7180f47f
+        STRIPE_REFRESH_URL: https://example-refresh.com
+        STRIPE_RETURN_URL: https://example-return.com
+        STRIPE_WEBHOOK_SIGNATURE: fake_signature
+        STRIPE_SECRET_KEY: fake_secret
+        STRIPE_PUBLIC_KEY: pk_test_51J33VwH4StbB2t7hOefeq5WXtLOz6iACPK2QeLYTNBP1V3tNP2HQn0JZt7tMfXkiPdk9QIaJmctOaSgD7sH8y0ZK00NEVVL3VK
+        STRIPE_WEBHOOK_SECURE: fake_secure_webhook_key
+        DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
+        RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+        OTP_SECRET_ENCRYPTION_KEY: FODswR7z29zhT5DHVqUUInqoLLVpSKzM
+        DEFAULT_EMAIL_ADDRESS: no-reply@minnect.com
+    depends_on: 
+        - db

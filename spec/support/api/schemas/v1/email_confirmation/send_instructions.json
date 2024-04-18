@@ -1,0 +1,16 @@
+{
+  "id": "api/schemas/email_confirmation/send_instructions.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "email_confirmation_sent": { "type": "boolean" }
+      },
+      "required": ["email_confirmation_sent"]
+    }
+  },
+  "required": ["data", "status"]
+}

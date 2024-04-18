@@ -1,0 +1,89 @@
+{
+  "id": "api/schemas/users/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "email": { "type": "string" },
+            "first_name": { "type": "string" },
+            "last_name": { "type": "string" },
+            "role": { "type": "string" },
+            "active": { "type": "boolean" },
+            "date_of_birth": { "type": "string" },
+            "gender": { "type": "string" },
+            "phone_number": { "type": "string" },
+            "country": { "type": "string" },
+            "flag_url": { "type": ["string", "null"] },
+            "city": { "type": "string" },
+            "zip_code": { "type": "string" },
+            "url_picture": { "type": ["string", "null"] },
+            "allow_notifications": { "type": "boolean" },
+            "has_both_profiles": { "type": "boolean" },
+            "account_verified": { "type": "boolean" },
+            "requires_confirmation": { "type": "boolean" },
+            "expert": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "biography": { "type": "string" },
+                "website_url": { "type": ["string", "null"] },
+                "linkedin_url": { "type": ["string", "null"] },
+                "twitter_url": { "type": ["string", "null"] },
+                "instagram_url": { "type": ["string", "null"] },
+                "quick_question_rate": { "type": "number" },
+                "one_to_one_video_call_rate": { "type": "number" },
+                "one_to_five_video_call_rate": { "type": "number" },
+                "extra_user_rate": { "type": "number" },
+                "status": { "type": "string" },
+                "stripe_account_set": { "type": "boolean" },
+                "can_receive_stripe_transfers": { "type": "boolean" },
+                "bank_account_last4": { "type": ["string", "null"] },
+                "consultation_count": { "type": "number" },
+                "categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "name", "description"],
+                    "properties": {
+                      "id": { "type": "number" },
+                      "name": { "type": "string" },
+                      "description": { "type": "string" }
+                    }
+                  }
+                }
+              },
+              "required": ["id", "biography", "website_url", "linkedin_url",
+                           "quick_question_rate", "one_to_one_video_call_rate",
+                           "one_to_five_video_call_rate", "extra_user_rate", "status",
+                           "stripe_account_set", "can_receive_stripe_transfers",
+                           "bank_account_last4", "consultation_count", "categories",
+                           "twitter_url", "instagram_url"]
+            },
+            "individual": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "username": { "type": ["string", "null"] },
+                "has_stripe_payment_method": { "type": "boolean" }
+              },
+              "required": ["id", "username", "has_stripe_payment_method"]
+            }
+          },
+          "required": ["email", "first_name", "last_name", "role", "active", "gender",
+                       "date_of_birth", "city", "zip_code", "url_picture", "country",
+                       "phone_number", "allow_notifications", "has_both_profiles",
+                       "flag_url", "requires_confirmation", "two_factor_enabled",
+                       "account_verified", "status"]
+        }
+      },
+      "required": ["user"]
+    }
+  },
+  "required": ["data", "status"]
+}

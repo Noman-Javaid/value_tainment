@@ -1,0 +1,30 @@
+{
+  "id": "api/schemas/featured_experts/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "expert": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "first_name": { "type": "string" },
+            "last_name": { "type": "string" },
+            "url_picture": { "type": ["string", "null"] },
+            "status": { "type": "string" },
+            "total_earnings": { "type": "number" },
+            "pending_events": { "type": "number" },
+            "pending_quick_questions": { "type": "number" }
+          },
+          "required": ["id", "status", "url_picture", "first_name", "last_name",
+            "total_earnings", "pending_events", "pending_quick_questions"]
+        }
+      },
+      "required": ["expert"]
+    }
+  },
+  "required": ["data", "status"]
+}

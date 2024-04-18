@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+bundle exec rails r utils/run_data_migrations.rb

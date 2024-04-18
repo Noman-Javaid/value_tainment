@@ -1,0 +1,27 @@
+{
+  "id": "api/schemas/complaints/create.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "complaint": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "number" },
+            "individual_id": { "type": "string" },
+            "expert_id": { "type": "string" },
+            "expert_interaction_id": { "type": ["number", "null"] },
+            "content": { "type": "string" },
+            "status": { "type": "string" }
+          },
+          "required": ["id", "expert_id", "expert_interaction_id", "content", "status"]
+        }
+      },
+      "required": ["complaint"]
+    }
+  },
+  "required": ["data", "status"]
+}

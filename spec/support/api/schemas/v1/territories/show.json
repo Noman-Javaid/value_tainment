@@ -1,0 +1,27 @@
+{
+  "id": "api/schemas/territories/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "territory": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "number" },
+            "name": { "type": "string" },
+            "alpha2_code": { "type": "string" },
+            "phone_code": { "type": "string" },
+            "active": { "type": "boolean" },
+            "flag_url": { "type": ["string", "null"] }
+          },
+          "required": ["id", "name", "alpha2_code", "phone_code", "active", "flag_url"]
+        }
+      },
+      "required": ["territory"]
+    }
+  },
+  "required": ["data", "status"]
+}

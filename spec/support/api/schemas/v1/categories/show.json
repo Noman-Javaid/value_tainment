@@ -1,0 +1,24 @@
+{
+  "id": "api/schemas/categories/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "number" },
+            "name": { "type": "string" },
+            "description": { "type": "string" }
+          },
+          "required": ["id", "name", "description"]
+        }
+      },
+      "required": ["category"]
+    }
+  },
+  "required": ["data", "status"]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "api/schemas/devices/update.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "number" },
+            "user_id": { "type": "number" },
+            "app_build": { "type": ["string", "null"] },
+            "device_name": { "type": ["string", "null"] },
+            "environment": { "type": ["string", "null"] },
+            "ios_push_notifications": { "type": ["string", "null"] },
+            "language": { "type": ["string", "null"] },
+            "os": { "type": ["string", "null"] },
+            "os_version": { "type": ["string", "null"] },
+            "time_format": { "type": ["string", "null"] },
+            "timezone": { "type": ["string", "null"] },
+            "token": { "type": ["string", "null"] },
+            "version": { "type": ["string", "null"] }
+          },
+          "required": ["id", "user_id", "device_name", "environment",
+            "ios_push_notifications", "language", "os", "os_version", "time_format",
+            "timezone", "token", "version"]
+        }
+      },
+      "required": ["device"]
+    }
+  },
+  "required": ["data", "status"]
+}

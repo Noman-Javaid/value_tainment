@@ -1,0 +1,46 @@
+{
+  "id": "api/schemas/availabilities/show.json",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "expert_availability": {
+          "type": "object",
+          "properties": {
+            "date_initial": { "type": "string" },
+            "date_end": { "type": "string" },
+            "call_duration": { "type": "number" },
+            "days": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["day", "available_time"],
+                "properties": {
+                  "day": { "type": "string" },
+                  "available_time": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["time_start", "time_end"],
+                      "properties": {
+                        "time_start": { "type": "string" },
+                        "time_end": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["days", "time_start", "time_end"]
+            }
+          },
+          "required": ["date_initial", "date_end", "call_duration", "days"]
+        }
+      },
+      "required": ["expert_availability"]
+    }
+  },
+  "required": ["data", "status"]
+}
